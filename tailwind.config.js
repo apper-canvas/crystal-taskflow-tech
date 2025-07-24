@@ -29,10 +29,10 @@ export default {
           600: '#d97706',
           700: '#b45309',
           800: '#92400e',
-          900: '#78350f',
+900: '#78350f',
         },
         surface: '#ffffff',
-        background: '#fafafa',
+        background: '#fef3c7',
       },
       fontFamily: {
         'display': ['Plus Jakarta Sans', 'sans-serif'],
