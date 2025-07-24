@@ -1,0 +1,57 @@
+[
+  {
+    "Id": 1,
+    "title": "Review quarterly budget report",
+    "description": "Analyze Q3 expenses and prepare recommendations for Q4 budget allocation",
+    "categoryId": "1",
+    "priority": "high",
+    "dueDate": "2024-01-15",
+    "completed": false,
+    "createdAt": "2024-01-10T09:00:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 2,
+    "title": "Team standup meeting",
+    "description": "Daily sync with development team to discuss progress and blockers",
+    "categoryId": "2",
+    "priority": "medium", 
+    "dueDate": "2024-01-12",
+    "completed": true,
+    "createdAt": "2024-01-11T08:30:00Z",
+    "completedAt": "2024-01-12T10:00:00Z"
+  },
+  {
+    "Id": 3,
+    "title": "Update project documentation",
+    "description": "Revise API documentation and user guides for the latest release",
+    "categoryId": "2",
+    "priority": "medium",
+    "dueDate": "2024-01-18",
+    "completed": false,
+    "createdAt": "2024-01-11T14:15:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 4,
+    "title": "Grocery shopping",
+    "description": "Buy ingredients for meal prep and weekly essentials",
+    "categoryId": "3",
+    "priority": "low",
+    "dueDate": "2024-01-13",
+    "completed": false,
+    "createdAt": "2024-01-11T16:20:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 5,
+    "title": "Client presentation prep",
+    "description": "Prepare slides and demo for upcoming client proposal meeting",
+    "categoryId": "2",
+    "priority": "high",
+    "dueDate": "2024-01-16",
+    "completed": false,
+    "createdAt": "2024-01-11T11:45:00Z",
+    "completedAt": null
+  }
+]
