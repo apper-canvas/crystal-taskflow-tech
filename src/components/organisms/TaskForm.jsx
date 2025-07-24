@@ -13,7 +13,8 @@ const [formData, setFormData] = useState({
     description_c: "",
     category_id_c: "",
     priority_c: "medium",
-    due_date_c: ""
+    due_date_c: "",
+    phone_c: ""
   });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -40,11 +41,11 @@ const [formData, setFormData] = useState({
     }
   };
 
-  const validateForm = () => {
+const validateForm = () => {
     const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = "Title is required";
-    if (!formData.categoryId) newErrors.categoryId = "Category is required";
-    if (!formData.dueDate) newErrors.dueDate = "Due date is required";
+    if (!formData.title_c.trim()) newErrors.title_c = "Title is required";
+    if (!formData.category_id_c) newErrors.category_id_c = "Category is required";
+    if (!formData.due_date_c) newErrors.due_date_c = "Due date is required";
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -59,12 +60,13 @@ const [formData, setFormData] = useState({
 const newTask = await taskService.create(formData);
       toast.success("Task created successfully!");
       onTaskCreated(newTask);
-      setFormData({
+setFormData({
         title_c: "",
         description_c: "",
         category_id_c: "",
         priority_c: "medium",
-        due_date_c: ""
+        due_date_c: "",
+        phone_c: ""
       });
     } catch (error) {
       toast.error("Failed to create task");
@@ -142,11 +144,23 @@ const newTask = await taskService.create(formData);
 
           <FormField
             label="Due Date"
-            type="date"
-            name="dueDate"
-            value={formData.dueDate}
+type="date"
+            name="due_date_c"
+            value={formData.due_date_c}
             onChange={handleChange}
-            error={errors.dueDate}
+            error={errors.due_date_c}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <FormField
+            label="Phone"
+            type="text"
+            name="phone_c"
+            value={formData.phone_c}
+            onChange={handleChange}
+            error={errors.phone_c}
+            placeholder="Enter phone number"
           />
         </div>
 

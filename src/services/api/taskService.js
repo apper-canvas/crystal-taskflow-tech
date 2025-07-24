@@ -11,7 +11,7 @@ export const taskService = {
 
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "title_c" } },
           { field: { Name: "description_c" } },
           { field: { Name: "category_id_c" } },
@@ -20,6 +20,7 @@ export const taskService = {
           { field: { Name: "completed_c" } },
           { field: { Name: "created_at_c" } },
           { field: { Name: "completed_at_c" } },
+          { field: { Name: "phone_c" } },
           { field: { Name: "Tags" } }
         ],
         orderBy: [
@@ -55,7 +56,7 @@ export const taskService = {
       });
 
       const params = {
-        fields: [
+fields: [
           { field: { Name: "Name" } },
           { field: { Name: "title_c" } },
           { field: { Name: "description_c" } },
@@ -65,6 +66,7 @@ export const taskService = {
           { field: { Name: "completed_c" } },
           { field: { Name: "created_at_c" } },
           { field: { Name: "completed_at_c" } },
+          { field: { Name: "phone_c" } },
           { field: { Name: "Tags" } }
         ]
       };
@@ -94,7 +96,7 @@ export const taskService = {
         apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
       });
 
-      // Only include Updateable fields and format lookup fields properly
+// Only include Updateable fields and format lookup fields properly
       const params = {
         records: [{
           Name: taskData.Name || taskData.title || taskData.title_c,
@@ -108,6 +110,7 @@ export const taskService = {
                       taskData.completed !== undefined ? taskData.completed : false,
           created_at_c: taskData.created_at_c || taskData.createdAt || new Date().toISOString(),
           completed_at_c: taskData.completed_at_c || taskData.completedAt || null,
+          phone_c: taskData.phone_c || taskData.phone || "",
           Tags: taskData.Tags || ""
         }]
       };
@@ -157,7 +160,7 @@ export const taskService = {
 
       // Only include Updateable fields
       const updateData = {
-        Id: parseInt(id)
+Id: parseInt(id)
       };
 
       if (updates.Name !== undefined || updates.title !== undefined || updates.title_c !== undefined) {
@@ -187,10 +190,12 @@ export const taskService = {
       if (updates.completed_at_c !== undefined || updates.completedAt !== undefined) {
         updateData.completed_at_c = updates.completed_at_c || updates.completedAt;
       }
+      if (updates.phone_c !== undefined || updates.phone !== undefined) {
+        updateData.phone_c = updates.phone_c || updates.phone;
+      }
       if (updates.Tags !== undefined) {
         updateData.Tags = updates.Tags;
       }
-
       const params = {
         records: [updateData]
       };
@@ -284,7 +289,7 @@ export const taskService = {
 
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "title_c" } },
           { field: { Name: "description_c" } },
           { field: { Name: "category_id_c" } },
@@ -292,7 +297,8 @@ export const taskService = {
           { field: { Name: "due_date_c" } },
           { field: { Name: "completed_c" } },
           { field: { Name: "created_at_c" } },
-          { field: { Name: "completed_at_c" } }
+          { field: { Name: "completed_at_c" } },
+          { field: { Name: "phone_c" } }
         ],
         where: [
           {
@@ -334,7 +340,7 @@ export const taskService = {
 
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "title_c" } },
           { field: { Name: "description_c" } },
           { field: { Name: "category_id_c" } },
@@ -342,7 +348,8 @@ export const taskService = {
           { field: { Name: "due_date_c" } },
           { field: { Name: "completed_c" } },
           { field: { Name: "created_at_c" } },
-          { field: { Name: "completed_at_c" } }
+          { field: { Name: "completed_at_c" } },
+          { field: { Name: "phone_c" } }
         ],
         where: [
           {
@@ -384,7 +391,7 @@ export const taskService = {
 
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "title_c" } },
           { field: { Name: "description_c" } },
           { field: { Name: "category_id_c" } },
@@ -392,9 +399,10 @@ export const taskService = {
           { field: { Name: "due_date_c" } },
           { field: { Name: "completed_c" } },
           { field: { Name: "created_at_c" } },
-          { field: { Name: "completed_at_c" } }
+          { field: { Name: "completed_at_c" } },
+          { field: { Name: "phone_c" } }
         ],
-        whereGroups: [
+whereGroups: [
           {
             operator: "OR",
             subGroups: [
@@ -412,6 +420,16 @@ export const taskService = {
                 conditions: [
                   {
                     fieldName: "description_c",
+                    operator: "Contains",
+                    values: [query]
+                  }
+                ],
+                operator: "OR"
+              },
+              {
+                conditions: [
+                  {
+                    fieldName: "phone_c",
                     operator: "Contains",
                     values: [query]
                   }
