@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from 'react-redux';
 import CategorySidebar from "@/components/organisms/CategorySidebar";
 import TaskList from "@/components/organisms/TaskList";
 import TaskForm from "@/components/organisms/TaskForm";
@@ -8,15 +9,18 @@ import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 import { categoryService } from "@/services/api/categoryService";
 import { toast } from "react-toastify";
+import { AuthContext } from "@/App";
 
 const Dashboard = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+const [selectedCategory, setSelectedCategory] = useState(null);
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [filters, setFilters] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [categories, setCategories] = useState([]);
-
+  
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
   useEffect(() => {
     loadCategories();
   }, []);
@@ -107,18 +111,32 @@ const Dashboard = () => {
                 >
                   <ApperIcon name="Menu" className="w-5 h-5" />
                 </Button>
-                <div>
+<div>
                   <h1 className="text-2xl font-bold gradient-text">TaskFlow</h1>
                   <p className="text-sm text-gray-600">Organize and complete daily tasks efficiently</p>
                 </div>
               </div>
-              <Button
-                onClick={() => setShowTaskForm(true)}
-                className="shadow-lg"
-              >
-                <ApperIcon name="Plus" className="w-4 h-4 mr-2" />
-                Add Task
-              </Button>
+              <div className="flex items-center space-x-4">
+                <div className="text-sm text-gray-600">
+                  Welcome, {user?.firstName || user?.name || 'User'}
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={logout}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <ApperIcon name="LogOut" className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+                <Button
+                  onClick={() => setShowTaskForm(true)}
+                  className="shadow-lg"
+                >
+                  <ApperIcon name="Plus" className="w-4 h-4 mr-2" />
+                  Add Task
+                </Button>
+              </div>
             </div>
           </header>
 
@@ -144,7 +162,7 @@ const Dashboard = () => {
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 onClearFilters={handleClearFilters}
-                categories={categories}
+categories={categories}
               />
 
               <TaskList

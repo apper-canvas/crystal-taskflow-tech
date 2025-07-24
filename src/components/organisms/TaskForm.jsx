@@ -8,12 +8,12 @@ import { categoryService } from "@/services/api/categoryService";
 import { toast } from "react-toastify";
 
 const TaskForm = ({ onTaskCreated, onCancel }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    categoryId: "",
-    priority: "medium",
-    dueDate: ""
+const [formData, setFormData] = useState({
+    title_c: "",
+    description_c: "",
+    category_id_c: "",
+    priority_c: "medium",
+    due_date_c: ""
   });
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -56,15 +56,15 @@ const TaskForm = ({ onTaskCreated, onCancel }) => {
 
     setLoading(true);
     try {
-      const newTask = await taskService.create(formData);
+const newTask = await taskService.create(formData);
       toast.success("Task created successfully!");
       onTaskCreated(newTask);
       setFormData({
-        title: "",
-        description: "",
-        categoryId: "",
-        priority: "medium",
-        dueDate: ""
+        title_c: "",
+        description_c: "",
+        category_id_c: "",
+        priority_c: "medium",
+        due_date_c: ""
       });
     } catch (error) {
       toast.error("Failed to create task");
@@ -112,18 +112,18 @@ const TaskForm = ({ onTaskCreated, onCancel }) => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <FormField
+<FormField
             label="Category"
             type="select"
-            name="categoryId"
-            value={formData.categoryId}
+            name="category_id_c"
+            value={formData.category_id_c}
             onChange={handleChange}
-            error={errors.categoryId}
+            error={errors.category_id_c}
           >
             <option value="">Select category</option>
             {categories.map(category => (
               <option key={category.Id} value={category.Id.toString()}>
-                {category.name}
+                {category.Name}
               </option>
             ))}
           </FormField>

@@ -44,7 +44,7 @@ const TaskList = ({
     }
   };
 
-  const filterTasks = async () => {
+const filterTasks = async () => {
     if (!searchQuery && Object.keys(filters).length === 0) {
       const allTasks = await taskService.getAll();
       setTasks(allTasks);
@@ -59,27 +59,29 @@ const TaskList = ({
 
     if (filters.status) {
       const completed = filters.status === "completed";
-      filteredTasks = filteredTasks.filter(task => task.completed === completed);
+      filteredTasks = filteredTasks.filter(task => task.completed_c === completed);
     }
 
     if (filters.category) {
-      filteredTasks = filteredTasks.filter(task => 
-        task.categoryId === filters.category
-      );
+      filteredTasks = filteredTasks.filter(task => {
+        // Handle lookup field - could be object or ID
+        const categoryId = task.category_id_c?.Id || task.category_id_c;
+        return categoryId?.toString() === filters.category;
+      });
     }
 
     if (filters.priority) {
       filteredTasks = filteredTasks.filter(task => 
-        task.priority === filters.priority
+        task.priority_c === filters.priority
       );
     }
 
     setTasks(filteredTasks);
   };
 
-  const handleToggleComplete = async (taskId, completed) => {
+const handleToggleComplete = async (taskId, completed) => {
     try {
-      const updatedTask = await taskService.update(taskId, { completed });
+      const updatedTask = await taskService.update(taskId, { completed_c: completed });
       setTasks(prev => prev.map(task => 
         task.Id === taskId ? updatedTask : task
       ));
@@ -129,10 +131,10 @@ const TaskList = ({
     <div className="space-y-4">
       <AnimatePresence mode="popLayout">
         {tasks.map(task => (
-          <TaskCard
+<TaskCard
             key={task.Id}
             task={task}
-            category={getCategoryById(task.categoryId)}
+            category={getCategoryById(task.category_id_c?.Id || task.category_id_c)}
             onToggleComplete={handleToggleComplete}
             onDelete={handleDeleteTask}
           />
