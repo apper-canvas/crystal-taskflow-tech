@@ -32,7 +32,7 @@ export default {
 900: '#78350f',
         },
         surface: '#ffffff',
-        background: '#fef3c7',
+        background: '#ffffff',
       },
       fontFamily: {
         'display': ['Plus Jakarta Sans', 'sans-serif'],
