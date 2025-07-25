@@ -18,17 +18,17 @@ const TaskCard = ({
 }) => {
   const [isCompleting, setIsCompleting] = useState(false);
 
-  const handleToggleComplete = async () => {
+const handleToggleComplete = async () => {
     setIsCompleting(true);
     try {
-      await onToggleComplete(task.Id, !task.completed);
+      await onToggleComplete(task.Id, !task.completed_c);
     } finally {
       setIsCompleting(false);
     }
   };
 
-  const getPriorityBorderClass = () => {
-    switch (task.priority) {
+const getPriorityBorderClass = () => {
+    switch (task.priority_c) {
       case "high": return "priority-border-high";
       case "medium": return "priority-border-medium";
       case "low": return "priority-border-low";
@@ -36,8 +36,7 @@ const TaskCard = ({
     }
   };
 
-  const isOverdue = new Date(task.dueDate) < new Date() && !task.completed;
-
+  const isOverdue = new Date(task.due_date_c) < new Date() && !task.completed_c;
   return (
     <motion.div
       layout
@@ -52,9 +51,9 @@ const TaskCard = ({
       )}
     >
       <div className="flex items-start space-x-4">
-        <div className="mt-1">
+<div className="mt-1">
           <Checkbox
-            checked={task.completed}
+            checked={task.completed_c}
             onChange={handleToggleComplete}
             disabled={isCompleting}
           />
@@ -64,9 +63,9 @@ const TaskCard = ({
           <div className="flex items-start justify-between mb-2">
             <h3 className={cn(
               "font-semibold text-gray-900 leading-tight",
-              task.completed && "line-through text-gray-500"
+              task.completed_c && "line-through text-gray-500"
             )}>
-              {task.title}
+              {task.title_c || task.Name}
             </h3>
             <div className="flex items-center space-x-2 ml-4">
               <Button
@@ -88,28 +87,28 @@ const TaskCard = ({
             </div>
           </div>
 
-          {task.description && (
+{task.description_c && (
             <p className={cn(
               "text-sm text-gray-600 mb-3 leading-relaxed",
-              task.completed && "line-through"
+              task.completed_c && "line-through"
             )}>
-              {task.description}
+              {task.description_c}
             </p>
           )}
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
+<div className="flex items-center space-x-3">
               <CategoryPill category={category} />
-              <PriorityBadge priority={task.priority} />
+              <PriorityBadge priority={task.priority_c} />
             </div>
 
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <div className={cn(
                 "flex items-center",
                 isOverdue && "text-red-600 font-medium"
-              )}>
+)}>
                 <ApperIcon name="Calendar" className="w-4 h-4 mr-1" />
-                {format(new Date(task.dueDate), "MMM d")}
+                {format(new Date(task.due_date_c), "MMM d")}
                 {isOverdue && (
                   <span className="ml-1 text-xs">(Overdue)</span>
                 )}
@@ -119,11 +118,11 @@ const TaskCard = ({
         </div>
       </div>
 
-      {task.completed && task.completedAt && (
+{task.completed_c && task.completed_at_c && (
         <div className="mt-3 pt-3 border-t border-gray-200">
           <p className="text-xs text-gray-500 flex items-center">
             <ApperIcon name="CheckCircle2" className="w-3 h-3 mr-1 text-green-500" />
-            Completed {format(new Date(task.completedAt), "MMM d, yyyy 'at' h:mm a")}
+            Completed {format(new Date(task.completed_at_c), "MMM d, yyyy 'at' h:mm a")}
           </p>
         </div>
       )}

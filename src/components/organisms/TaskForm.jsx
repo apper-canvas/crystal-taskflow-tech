@@ -94,27 +94,27 @@ setFormData({
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <FormField
+<FormField
           label="Task Title"
-          name="title"
-          value={formData.title}
+          name="title_c"
+          value={formData.title_c}
           onChange={handleChange}
           placeholder="Enter task title..."
-          error={errors.title}
+          error={errors.title_c}
         />
 
         <FormField
           label="Description"
           type="textarea"
-          name="description"
-          value={formData.description}
+          name="description_c"
+          value={formData.description_c}
           onChange={handleChange}
           placeholder="Add task description (optional)..."
           rows={3}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-<FormField
+          <FormField
             label="Category"
             type="select"
             name="category_id_c"
@@ -133,8 +133,8 @@ setFormData({
           <FormField
             label="Priority"
             type="select"
-            name="priority"
-            value={formData.priority}
+            name="priority_c"
+            value={formData.priority_c}
             onChange={handleChange}
           >
             <option value="low">Low</option>
@@ -144,7 +144,7 @@ setFormData({
 
           <FormField
             label="Due Date"
-type="date"
+            type="date"
             name="due_date_c"
             value={formData.due_date_c}
             onChange={handleChange}

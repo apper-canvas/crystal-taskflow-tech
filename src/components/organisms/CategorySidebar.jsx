@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
-import Loading from "@/components/ui/Loading";
+import Button from "@/components/atoms/Button";
 import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
 import { categoryService } from "@/services/api/categoryService";
 import { taskService } from "@/services/api/taskService";
 import { cn } from "@/utils/cn";
@@ -31,10 +31,11 @@ const CategorySidebar = ({ selectedCategory, onCategorySelect, onAddCategory }) 
       
       // Calculate task counts for each category
       const counts = {};
-      categoriesData.forEach(category => {
-        counts[category.Id] = tasksData.filter(task => 
-          task.categoryId === category.Id.toString() && !task.completed
-        ).length;
+categoriesData.forEach(category => {
+        counts[category.Id] = tasksData.filter(task => {
+          const taskCategoryId = task.category_id_c?.Id || task.category_id_c;
+          return taskCategoryId?.toString() === category.Id.toString() && !task.completed_c;
+        }).length;
       });
       setTaskCounts(counts);
     } catch (err) {
@@ -89,13 +90,13 @@ const CategorySidebar = ({ selectedCategory, onCategorySelect, onAddCategory }) 
                 selectedCategory === category.Id.toString() && "bg-primary-50 text-primary-700 border border-primary-200"
               )}
               onClick={() => onCategorySelect(category.Id.toString())}
-            >
+>
               <div className="flex items-center">
                 <div
                   className="w-3 h-3 rounded-full mr-3"
-                  style={{ backgroundColor: category.color }}
+                  style={{ backgroundColor: category.color_c }}
                 />
-                <span className="font-medium">{category.name}</span>
+                <span className="font-medium">{category.Name}</span>
               </div>
               {taskCounts[category.Id] > 0 && (
                 <span className={cn(

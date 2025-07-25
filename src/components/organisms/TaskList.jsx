@@ -130,8 +130,8 @@ const handleToggleComplete = async (taskId, completed) => {
   return (
     <div className="space-y-4">
       <AnimatePresence mode="popLayout">
-        {tasks.map(task => (
-<TaskCard
+{tasks.map(task => (
+          <TaskCard
             key={task.Id}
             task={task}
             category={getCategoryById(task.category_id_c?.Id || task.category_id_c)}

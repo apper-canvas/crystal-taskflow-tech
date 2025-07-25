@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "@/App";
 
 const Dashboard = () => {
-const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [filters, setFilters] = useState({});
@@ -21,6 +21,7 @@ const [selectedCategory, setSelectedCategory] = useState(null);
   
   const { logout } = useContext(AuthContext);
   const { user } = useSelector((state) => state.user);
+  
   useEffect(() => {
     loadCategories();
   }, []);
@@ -141,7 +142,7 @@ const [selectedCategory, setSelectedCategory] = useState(null);
           </header>
 
           {/* Content */}
-          <main className="flex-1 p-6 overflow-auto">
+<main className="flex-1 p-6 overflow-auto">
             <div className="max-w-4xl mx-auto">
               {showTaskForm && (
                 <motion.div
@@ -162,11 +163,11 @@ const [selectedCategory, setSelectedCategory] = useState(null);
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 onClearFilters={handleClearFilters}
-categories={categories}
+                categories={categories}
               />
 
               <TaskList
-                filters={effectiveFilters}
+                filters={{...filters, category: selectedCategory}}
                 searchQuery={searchQuery}
                 onTaskUpdate={loadCategories}
                 onAddTask={() => setShowTaskForm(true)}

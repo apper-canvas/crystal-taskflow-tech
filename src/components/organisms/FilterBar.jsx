@@ -43,9 +43,9 @@ const FilterBar = ({
               className="w-36"
             >
               <option value="">All Categories</option>
-              {categories.map(category => (
+{categories.map(category => (
                 <option key={category.Id} value={category.Id.toString()}>
-                  {category.name}
+                  {category.Name}
                 </option>
               ))}
             </Select>

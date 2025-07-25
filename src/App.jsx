@@ -1,15 +1,16 @@
-import { createContext, useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { createContext, useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
-import { setUser, clearUser } from '@/store/userSlice';
-import Login from '@/components/pages/Login';
-import Signup from '@/components/pages/Signup';
-import Callback from '@/components/pages/Callback';
-import ErrorPage from '@/components/pages/ErrorPage';
-import ResetPassword from '@/components/pages/ResetPassword';
-import PromptPassword from '@/components/pages/PromptPassword';
+import "@/index.css";
+import Callback from "@/components/pages/Callback";
 import Dashboard from "@/components/pages/Dashboard";
+import ErrorPage from "@/components/pages/ErrorPage";
+import Login from "@/components/pages/Login";
+import PromptPassword from "@/components/pages/PromptPassword";
+import ResetPassword from "@/components/pages/ResetPassword";
+import Signup from "@/components/pages/Signup";
+import { clearUser, setUser } from "@/store/userSlice";
 
 // Create auth context
 export const AuthContext = createContext(null);
@@ -18,6 +19,10 @@ function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isInitialized, setIsInitialized] = useState(false);
+  
+  // Get authentication status with proper error handling
+  const userState = useSelector((state) => state.user);
+  const isAuthenticated = userState?.isAuthenticated || false;
   
   // Initialize ApperUI once when the app loads
   useEffect(() => {
@@ -88,7 +93,8 @@ function App() {
         console.error("Authentication failed:", error);
       }
     });
-  }, []);// No props and state should be bound
+  }, []); // No props and state should be bound
+}, []); // No props and state should be bound
   
   // Authentication methods to share via context
   const authMethods = {
